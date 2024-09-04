@@ -26,26 +26,26 @@ class Neumorphism extends StatelessWidget {
       margin: margin,
       padding: padding,
       decoration: BoxDecoration(
-          color: Color.fromARGB(255, 136, 134, 134),
+          color: const Color.fromARGB(255, 136, 134, 134),
           shape: BoxShape.circle,
           boxShadow: isRevers
               ? [
                   BoxShadow(
-                      color: Color.fromARGB(255, 92, 92, 92),
+                      color: const Color.fromARGB(255, 92, 92, 92),
                       blurRadius: blur,
                       offset: Offset(-distance, -distance)),
                   BoxShadow(
-                      color: Color.fromARGB(255, 210, 210, 210),
+                      color: const Color.fromARGB(255, 210, 210, 210),
                       blurRadius: blur,
                       offset: Offset(distance, distance)),
                 ]
               : [
                   BoxShadow(
-                      color: Color.fromARGB(255, 210, 210, 210),
+                      color: const Color.fromARGB(255, 210, 210, 210),
                       blurRadius: blur,
                       offset: Offset(-distance, -distance)),
                   BoxShadow(
-                      color: Color.fromARGB(255, 92, 92, 92),
+                      color: const Color.fromARGB(255, 92, 92, 92),
                       blurRadius: blur,
                       offset: Offset(distance, distance)),
                 ]),

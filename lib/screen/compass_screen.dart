@@ -1,9 +1,10 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:compassapp_personal/widget/compassPinter.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_compass/flutter_compass.dart';
-
+import 'package:intl/intl.dart';
 import '../widget/numrphism.dart';
 
 class CompassScreen extends StatefulWidget {
@@ -15,6 +16,30 @@ class CompassScreen extends StatefulWidget {
 
 class _CompassScreenState extends State<CompassScreen> {
   double? direction;
+  String formattedDate = DateFormat.yMMMMd('en_US').format(DateTime.now());
+  late String _currentTime;
+  late Timer _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _updateTime();
+    _timer =
+        Timer.periodic(const Duration(seconds: 1), (Timer t) => _updateTime());
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  void _updateTime() {
+    setState(() {
+      DateTime now = DateTime.now();
+      _currentTime = DateFormat.jm().format(now);
+    });
+  }
 
   double readingDegree(double heading) {
     return heading < 0 ? 360 - heading.abs() : heading;
@@ -25,7 +50,6 @@ class _CompassScreenState extends State<CompassScreen> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 136, 134, 134),
-      // Color.fromARGB(255, 193, 193, 193),
       body: Padding(
         padding: EdgeInsets.all(size.width * 0.07),
         child: StreamBuilder<CompassEvent>(
@@ -50,6 +74,22 @@ class _CompassScreenState extends State<CompassScreen> {
               } else {
                 return Stack(
                   children: [
+                    Positioned(
+                        top: size.height * 0.02,
+                        child: Text(
+                          formattedDate,
+                          style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white),
+                        )),
+                    Positioned(
+                        top: size.height * 0.05,
+                        child: Text(_currentTime,
+                            style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white))),
                     Neumorphism(
                       padding: const EdgeInsets.all(8),
                       child: Transform.rotate(
@@ -149,7 +189,9 @@ class CenterDisplay extends StatelessWidget {
                     "${direction.toInt().toString().padLeft(3, '0')}°",
                     style: TextStyle(
                         height: 0,
-                        color: Colors.black,
+                        color: getDirection(direction).toString() == "N"
+                            ? Colors.yellowAccent
+                            : Colors.black,
                         fontSize: size.width * 0.09,
                         fontWeight: FontWeight.bold),
                   ),
@@ -157,7 +199,9 @@ class CenterDisplay extends StatelessWidget {
                     getDirection(direction),
                     style: TextStyle(
                         height: 0,
-                        color: Colors.black,
+                        color: getDirection(direction).toString() == "N"
+                            ? Colors.yellowAccent
+                            : Colors.black,
                         fontSize: size.width * 0.06,
                         fontWeight: FontWeight.bold),
                   ),
