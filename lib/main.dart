@@ -1,4 +1,4 @@
-import 'package:compassapp_personal/screen/compass_screen.dart';
+import 'package:compass_upated/screen/compass_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

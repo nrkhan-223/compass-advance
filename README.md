@@ -1,4 +1,4 @@
-# compassapp_personal
+# compass_upated
 
 A new Flutter project.
 

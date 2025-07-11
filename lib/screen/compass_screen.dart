@@ -1,10 +1,9 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:compassapp_personal/widget/compassPinter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_compass/flutter_compass.dart';
 import 'package:intl/intl.dart';
+import '../widget/compassPinter.dart';
 import '../widget/numrphism.dart';
 
 class CompassScreen extends StatefulWidget {
